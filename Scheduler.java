@@ -18,6 +18,7 @@ public class Scheduler extends Application {
 
    public Pane getScheduler() {
       Pane pane = new Pane();
+      pane.getChildren().add(new HBox(new Settings().getView(), new ScheduleDisplay().getView()));
 
       return pane;
    }
