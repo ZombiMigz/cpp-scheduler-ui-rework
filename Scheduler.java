@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,10 +19,19 @@ public class Scheduler extends Application {
    }
 
    public Pane getScheduler() {
-      Pane pane = new Pane();
-      pane.getChildren().add(new HBox(new Settings().getView(), new ScheduleDisplay().getView()));
+      GridPane gridPane = new GridPane();
+      gridPane.setPrefWidth(1);
 
-      return pane;
+      ColumnConstraints constraint1 = new ColumnConstraints();
+      constraint1.setPercentWidth(40);
+      ColumnConstraints constraint2 = new ColumnConstraints();
+      constraint2.setPercentWidth(80);
+      gridPane.getColumnConstraints().addAll(constraint1, constraint2);
+
+      gridPane.add(new Settings().getView(), 0, 0);
+      gridPane.add(new ScheduleDisplay().getView(), 1, 0);
+
+      return gridPane;
    }
 
    public Pane getHeader() {
@@ -36,6 +47,7 @@ public class Scheduler extends Application {
    public Scene getScene() {
 
       VBox app = new VBox(getHeader(), getScheduler());
+      app.setFillWidth(true);
 
       Scene scene = new Scene(app);
 

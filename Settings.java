@@ -5,7 +5,8 @@ public class Settings {
   private Pane root;
 
   public Settings() {
-    root = new Pane(new Label("Settings"));
+    root = new Pane(new Label(
+        "Settings"));
   }
 
   public Pane getView() {
