@@ -1,3 +1,12 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+.root {
+  /* affects all nodes */
+  -fx-font-family: "Roboto";
+}
+
 #title {
   -fx-font-size: 50;
   -fx-text-fill: rgb(255, 255, 255);
@@ -5,4 +14,21 @@
 
 #header {
   -fx-background-color: #388e3c;
+}
+
+/* Pane containing settings */
+#settings {
+  -fx-padding: 10;
+  -fx-spacing: 20;
+}
+
+/* "Settings" Label at the top of the pane containing settings */
+#settingsLabel {
+  -fx-font-size: 72;
+  -fx-font-weight: 300;
+}
+
+/* Individual labels in settings "Add Class","Class List", etc */
+.settingLabel {
+  -fx-font-size: 48;
 }
