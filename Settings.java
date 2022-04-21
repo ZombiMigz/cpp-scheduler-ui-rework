@@ -69,10 +69,7 @@ public class Settings {
     root = new VBox();
     root.setId("settings");
 
-    Label label = new Label("Settings");
-    label.setId("settingsLabel");
-
-    root.getChildren().addAll(label, getAddClass(), getClassList());
+    root.getChildren().addAll(getAddClass(), getClassList());
 
     // Class List change listener
 

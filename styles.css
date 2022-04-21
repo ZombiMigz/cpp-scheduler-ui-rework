@@ -22,12 +22,6 @@
   -fx-spacing: 20;
 }
 
-/* "Settings" Label at the top of the pane containing settings */
-#settingsLabel {
-  -fx-font-size: 72;
-  -fx-font-weight: 300;
-}
-
 /* Individual labels in settings "Add Class","Class List", etc */
 .settingLabel {
   -fx-font-size: 48;
