@@ -1,16 +1,26 @@
+
 import java.util.ArrayList;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class Settings {
-  private VBox root;
-  // private ArrayList<Course> courseList = new ArrayList<>();
+  private ScrollPane root;
   private VBox classList = new VBox();
+  private VBox breakList = new VBox();
 
   public Pane getAddClass() {
     Label label = new Label("Add Class");
@@ -65,17 +75,76 @@ public class Settings {
     this.classList.getChildren().add(coursePane);
   }
 
-  public Settings() {
-    root = new VBox();
-    root.setId("settings");
+  public Pane getAddBreak() {
+    Label label = new Label("Add Break");
+    label.getStyleClass().add("settingLabel");
 
-    root.getChildren().addAll(getAddClass(), getClassList());
+    // Name input
+    Label nameLabel = new Label("Break Name");
+    TextField name = new TextField("Unnamed Break");
 
-    // Class List change listener
+    // Days Select
+    Label daySelectLabel = new Label("Days");
+    CheckBox mo = new CheckBox("Monday");
+    CheckBox tu = new CheckBox("Tuesday");
+    CheckBox we = new CheckBox("Wednesday");
+    CheckBox th = new CheckBox("Thursday");
+    CheckBox fr = new CheckBox("Friday");
+
+    // Time Select
+    Label startLabel = new Label("Start Time");
+    TextField start = new TextField();
+    Label endLabel = new Label("End Time");
+    TextField end = new TextField();
+
+    // Add Button
+    Button button = new Button("Add Break");
+    button.setOnAction(e -> {
+      String days = "";
+      if (mo.isSelected())
+        days += "Mo";
+      if (tu.isSelected())
+        days += "Tu";
+      if (we.isSelected())
+        days += "We";
+      if (th.isSelected())
+        days += "Th";
+      if (fr.isSelected())
+        days += "Fr";
+      addBreak(new Break(name.getText(), days, start.getText() + "-" + end.getText()));
+    });
+
+    return new VBox(label, nameLabel, name, daySelectLabel, mo, tu, we, th, fr, startLabel, start, endLabel, end,
+        button);
 
   }
 
-  public Pane getView() {
+  private void addBreak(Break break1) {
+    VBox breakPane = new VBox();
+    breakPane.getChildren().addAll(new Label(break1.name), new Label("Days: " + break1.days),
+        new Label("Time: " + break1.time));
+    breakPane.getStyleClass().add("break");
+    breakPane.setBorder(
+        new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    breakList.getChildren().add(breakPane);
+  }
+
+  public Pane getBreakList() {
+    Label label = new Label("Break List");
+    label.getStyleClass().add("settingLabel");
+    breakList.getChildren().add(label);
+
+    return breakList;
+  }
+
+  public Settings() {
+    root = new ScrollPane(new VBox(getAddClass(), getClassList(), getAddBreak(), getBreakList()));
+    root.setId("settings");
+    root.setFitToHeight(true);
+
+  }
+
+  public ScrollPane getView() {
     return root;
   }
 
@@ -92,5 +161,18 @@ public class Settings {
 
     String courseName;
     Data.Section[] sections;
+  }
+
+  private class Break {
+
+    public Break(String name, String days, String time) {
+      this.name = name;
+      this.days = days;
+      this.time = time;
+    }
+
+    String name;
+    String days;
+    String time;
   }
 }

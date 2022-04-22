@@ -40,6 +40,7 @@ public class Scheduler extends Application {
       HBox hbox = new HBox(title);
       Pane pane = new Pane(hbox);
       pane.setId("header");
+      pane.setMinHeight(55);
 
       return pane;
    }

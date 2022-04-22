@@ -26,3 +26,9 @@
 .settingLabel {
   -fx-font-size: 48;
 }
+
+/* individual break displays */
+.break {
+  -fx-background-color: white;
+  -fx-padding: 10;
+}
