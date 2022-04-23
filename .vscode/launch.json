@@ -9,6 +9,14 @@
       "name": "Launch Scheduler",
       "request": "launch",
       "mainClass": "Scheduler",
+      "projectName": "cpp-scheduler-ui-rework_534241ef",
+      "vmArgs": "--module-path ./javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml"
+    },
+    {
+      "type": "java",
+      "name": "Launch Scheduler",
+      "request": "launch",
+      "mainClass": "Scheduler",
       "projectName": "cpp-scheduler-ui-rework_4dd25839",
       "vmArgs": "--module-path ./javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml"
     }

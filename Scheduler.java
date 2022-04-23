@@ -30,7 +30,6 @@ public class Scheduler extends Application {
 
       gridPane.add(new Settings().getView(), 0, 0);
       gridPane.add(new ScheduleDisplay().getView(), 1, 0);
-
       return gridPane;
    }
 
@@ -67,11 +66,14 @@ public class Scheduler extends Application {
       // Set the stage title.
       primaryStage.setTitle("CPP Scheduler");
 
-      primaryStage.setHeight(720);
-      primaryStage.setWidth(1280);
+      // primaryStage.setHeight(720);
+      // primaryStage.setWidth(1280);
 
       // set fullscreen
       // primaryStage.setFullScreen(true);
+
+      // set window to maximize
+      primaryStage.setMaximized(true);
 
       // Show the window.
       primaryStage.show();

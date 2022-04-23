@@ -1,0 +1,23 @@
+.pagination {
+    -fx-rotate: 180;
+}
+
+.pagination .pagination-control { 
+    -fx-rotate:180; 
+}
+
+.pagination .page {
+     -fx-rotate:180; 
+}  
+
+.pagination .pagination-control .toggle-button {
+    -fx-background-color: transparent, transparent, transparent, transparent, transparent;
+}
+ 
+.pagination .pagination-control .toggle-button:selected {   
+    -fx-background-color: transparent, transparent, #388e3c;
+}
+ 
+.pagination .pagination-control .left-arrow, .right-arrow{
+    -fx-background-color: transparent, #388e3c;
+}

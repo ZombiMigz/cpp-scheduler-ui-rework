@@ -17,13 +17,13 @@
 }
 
 /* Pane containing settings */
-#settings {
+#settings, #scheduleDisplay {
   -fx-padding: 10;
   -fx-spacing: 20;
 }
 
 /* Individual labels in settings "Add Class","Class List", etc */
-.settingLabel {
+.settingLabel, .scheduleLabel {
   -fx-font-size: 48;
 }
 
