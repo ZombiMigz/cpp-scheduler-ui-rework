@@ -30,6 +30,7 @@ public class Settings {
 
     // Term Select
     Label termLabel = new Label("Term");
+    termLabel.setTextFill(Color.WHITE);
     ChoiceBox<String> termChoices = new ChoiceBox<>();
     termChoices.getItems().addAll("Fall 2021", "Spring 2022", "Fall 2022");
     // Default value
@@ -37,6 +38,7 @@ public class Settings {
 
     // Course Select
     Label courseSelectLabel = new Label("Course");
+    courseSelectLabel.setTextFill(Color.WHITE);
     ChoiceBox<String> courseSelect = new ChoiceBox<>();
     courseSelect.getItems().addAll(Data.courseList);
     courseSelect.setValue(Data.courseList[0]);
@@ -83,10 +85,12 @@ public class Settings {
 
     // Name input
     Label nameLabel = new Label("Break Name");
+    nameLabel.setTextFill(Color.WHITE);
     TextField name = new TextField("Unnamed Break");
 
     // Days Select
     Label daySelectLabel = new Label("Days");
+    daySelectLabel.setTextFill(Color.WHITE);
     daySelectLabel.setPadding(new Insets(10, 0, 0, 0));
 
     CheckBox mo = new CheckBox("Monday");
@@ -102,9 +106,11 @@ public class Settings {
 
     // Time Select
     Label startLabel = new Label("Start Time");
+    startLabel.setTextFill(Color.WHITE);
     startLabel.setPadding(new Insets(10, 0, 0, 0));
     TextField start = new TextField();
     Label endLabel = new Label("End Time");
+    endLabel.setTextFill(Color.WHITE);
     TextField end = new TextField();
 
     // Add Button
@@ -149,9 +155,11 @@ public class Settings {
 
   public Settings() {
     VBox vbox = new VBox(getAddClass(), getClassList(), getAddBreak(), getBreakList());
+    vbox.setId("settingsPaneVBox");
     root = new ScrollPane(vbox);
-    root.setId("settings");
+    root.setId("settingsPane");
     root.setFitToHeight(true);
+    root.setFitToWidth(true);
   }
 
   public ScrollPane getView() {

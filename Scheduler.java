@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -7,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * A JavaFX Hello World application
@@ -23,9 +26,9 @@ public class Scheduler extends Application {
       gridPane.setPrefWidth(1);
 
       ColumnConstraints constraint1 = new ColumnConstraints();
-      constraint1.setPercentWidth(20);
+      constraint1.setPercentWidth(25);
       ColumnConstraints constraint2 = new ColumnConstraints();
-      constraint2.setPercentWidth(80);
+      constraint2.setPercentWidth(75);
       gridPane.getColumnConstraints().addAll(constraint1, constraint2);
 
       gridPane.add(new Settings().getView(), 0, 0);
@@ -37,9 +40,11 @@ public class Scheduler extends Application {
       Label title = new Label("CPP Scheduler");
       title.setId("title");
       HBox hbox = new HBox(title);
-      Pane pane = new Pane(hbox);
+      GridPane pane = new GridPane();
+      pane.add(hbox, 0, 0);
       pane.setId("header");
-      pane.setMinHeight(55);
+      pane.setMinHeight(80);
+      GridPane.setValignment(title, VPos.CENTER);
 
       return pane;
    }
@@ -50,6 +55,7 @@ public class Scheduler extends Application {
       app.setFillWidth(true);
 
       Scene scene = new Scene(app);
+      scene.setFill(Color.WHITE);
 
       // Add css
       scene.getStylesheets().addAll("styles.css");

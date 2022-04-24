@@ -7,25 +7,51 @@
   -fx-font-family: "Roboto";
 }
 
+.button, .choice-box {
+  -fx-background-color: #fff;
+}
+
+
+
 #title {
   -fx-font-size: 50;
   -fx-text-fill: rgb(255, 255, 255);
 }
 
 #header {
-  -fx-background-color: #388e3c;
+  /* -fx-background-color: #388e3c; */
+  -fx-padding: 10;
+  -fx-background-color: #FFB500;
 }
 
 /* Pane containing settings */
-#settings, #scheduleDisplay {
+#settingsPane, #scheduleDisplay {
   -fx-padding: 10;
   -fx-spacing: 20;
 }
 
-/* Individual labels in settings "Add Class","Class List", etc */
-.settingLabel, .scheduleLabel {
+#scheduleDisplay {
+  -fx-background-color: #fff;
+}
+
+#settingsPane, #settingsPaneVBox {
+  -fx-background-color: #027838;
+  -fx-padding: 10 5 10 10;
+  
+}
+
+.scheduleLabel {
   -fx-font-size: 48;
 }
+/* Individual labels in settings "Add Class","Class List", etc */
+.settingLabel {
+  -fx-font-size: 48;
+  -fx-text-fill: #fff;
+}
+
+/* #settingsPane > .label {
+  -fx-text-fill: #fff;
+} */
 
 /* individual break displays */
 .break {
