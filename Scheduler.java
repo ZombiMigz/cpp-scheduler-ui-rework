@@ -23,7 +23,7 @@ public class Scheduler extends Application {
       gridPane.setPrefWidth(1);
 
       ColumnConstraints constraint1 = new ColumnConstraints();
-      constraint1.setPercentWidth(40);
+      constraint1.setPercentWidth(20);
       ColumnConstraints constraint2 = new ColumnConstraints();
       constraint2.setPercentWidth(80);
       gridPane.getColumnConstraints().addAll(constraint1, constraint2);

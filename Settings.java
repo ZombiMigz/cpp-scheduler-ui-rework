@@ -1,6 +1,8 @@
 
 import java.util.ArrayList;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -85,14 +87,22 @@ public class Settings {
 
     // Days Select
     Label daySelectLabel = new Label("Days");
+    daySelectLabel.setPadding(new Insets(10, 0, 0, 0));
+
     CheckBox mo = new CheckBox("Monday");
     CheckBox tu = new CheckBox("Tuesday");
     CheckBox we = new CheckBox("Wednesday");
     CheckBox th = new CheckBox("Thursday");
     CheckBox fr = new CheckBox("Friday");
+    mo.getStyleClass().add("dayButton");
+    tu.getStyleClass().add("dayButton");
+    we.getStyleClass().add("dayButton");
+    th.getStyleClass().add("dayButton");
+    fr.getStyleClass().add("dayButton");
 
     // Time Select
     Label startLabel = new Label("Start Time");
+    startLabel.setPadding(new Insets(10, 0, 0, 0));
     TextField start = new TextField();
     Label endLabel = new Label("End Time");
     TextField end = new TextField();
@@ -138,10 +148,10 @@ public class Settings {
   }
 
   public Settings() {
-    root = new ScrollPane(new VBox(getAddClass(), getClassList(), getAddBreak(), getBreakList()));
+    VBox vbox = new VBox(getAddClass(), getClassList(), getAddBreak(), getBreakList());
+    root = new ScrollPane(vbox);
     root.setId("settings");
     root.setFitToHeight(true);
-
   }
 
   public ScrollPane getView() {
