@@ -1,6 +1,7 @@
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,6 +15,8 @@ public class ScheduleDisplay {
   private Pane root;
   private static String[] colors = {"#ffbfc5", "#ffc89c", "#faefbe", "#8fffff", "#baffd5", "#d3cfff", "#fac4ff"};
   private static String[] labelNames = {"Face-to-Face", "Fully Synchronous", "Hybrid Sychronous Component", "Fully Asynchronous", "Hybrid Asynchronous Component", "Bisynchronous", "Hyflex"};
+  private static String[] imageName = {"sch1.png", "sch2.png", "sch6.png", "sch3.png", "sch4.png", "sch5.png", "sch7.png", "sch8.png"};
+
 
   // function to create a horizontal box of legend item (color & label)
   public HBox setLegend(String color, String labelName){
@@ -31,6 +34,12 @@ public class ScheduleDisplay {
     return hBox;
   }
 
+  public ImageView getImageView(int index) {
+    Image image = new Image("file:assets\\" + imageName[index]);
+    ImageView imageView = new ImageView(image);
+    return imageView;
+  }
+
   // function that creates the schedule display
   public ScheduleDisplay() {
     // Vbox for the right column that contains the hourly-week schedule (labels, boxes and images)
@@ -43,17 +52,19 @@ public class ScheduleDisplay {
     VBox labelBox = new VBox(label);
     labelBox.setAlignment(Pos.CENTER);
 
-    // temporary label for the pagination
-    Pagination pagination = new Pagination(200);
+    // creating the pagination needed to display the possible schedules
+    Pagination pagination = new Pagination(imageName.length);
       pagination.setMaxPageIndicatorCount(12);
       pagination.getStylesheets().add("pagination_styles.css");
       pagination.setPageFactory((pageIndex) -> {
-        Image image = new Image("file:assets\\Printable-Hourly-Planner.jpg");
-        ImageView schedule = new ImageView(image);
-        HBox imageBox = new HBox(schedule);
-        imageBox.setAlignment(Pos.CENTER);
+        ScrollPane scheduleScrollPane = new ScrollPane();
+        ImageView schedule = getImageView(pageIndex);
+        schedule.fitWidthProperty().bind(root.widthProperty());
+
+        scheduleScrollPane.setContent(schedule);
+        scheduleScrollPane.setFitToWidth(true);
         
-        return imageBox;
+        return scheduleScrollPane;
     });
     HBox paginationBox = new HBox(pagination);
     paginationBox.setAlignment(Pos.CENTER);
