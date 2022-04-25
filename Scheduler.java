@@ -3,6 +3,8 @@ import javafx.geometry.VPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -36,9 +38,12 @@ public class Scheduler extends Application {
    }
 
    public Pane getHeader() {
+      ImageView hamburger = new ImageView(new Image("/assets/Hamburger_icon.svg.png"));
+      hamburger.setFitHeight(60);
+      hamburger.setPreserveRatio(true);
       Label title = new Label("CPP Scheduler");
       title.setId("title");
-      HBox hbox = new HBox(title);
+      HBox hbox = new HBox(hamburger, title);
       GridPane pane = new GridPane();
       pane.add(hbox, 0, 0);
       pane.setId("header");
