@@ -67,6 +67,11 @@
 
 .dayButton {
   -fx-padding: 3 0 0 10;
+  -fx-text-fill: white;
+}
+
+.dayButton {
+
 }
 
 .removeButton {
