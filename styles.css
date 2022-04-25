@@ -11,8 +11,6 @@
   -fx-background-color: #fff;
 }
 
-
-
 #title {
   -fx-font-size: 50;
   -fx-text-fill: rgb(255, 255, 255);
@@ -61,4 +59,9 @@
 
 .dayButton {
   -fx-padding: 3 0 0 10;
+}
+
+.removeButton {
+  -fx-background-color: rgb(255, 110, 110);
+  -fx-text-fill: white;
 }

@@ -2,7 +2,6 @@
 import java.util.ArrayList;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -15,6 +14,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 public class Settings {
   private ScrollPane root;
   private VBox classList = new VBox();
+
   private VBox breakList = new VBox();
 
   public Pane getAddClass() {
@@ -40,27 +41,32 @@ public class Settings {
     Label courseSelectLabel = new Label("Course");
     courseSelectLabel.setTextFill(Color.WHITE);
     ChoiceBox<String> courseSelect = new ChoiceBox<>();
-    courseSelect.getItems().addAll(Data.courseList);
-    courseSelect.setValue(Data.courseList[0]);
+    courseSelect.getItems().addAll(Data.courseNames);
+    courseSelect.setValue(Data.courseNames[0]);
 
     // Add Button
     Button button = new Button("Add Course");
     button.setOnAction(e -> {
-      addCourse(new Course(courseSelect.getValue()));
+      addClass(new Course(courseSelect.getValue()));
     });
+
+    VBox.setMargin(courseSelectLabel, new Insets(10, 0, 0, 0));
+    VBox.setMargin(button, new Insets(10, 0, 0, 0));
 
     return new VBox(label, termLabel, termChoices, courseSelectLabel, courseSelect, button);
   }
 
   public Pane getClassList() {
-    Label label = new Label("Class List");
-    label.getStyleClass().add("settingLabel");
-    classList.getChildren().add(label);
-
     return classList;
   }
 
-  private void addCourse(Course course) {
+  private void addClass(Course course) {
+    if (classList.getChildren().size() == 0) {
+      Label label = new Label("Class List");
+      label.getStyleClass().add("settingLabel");
+      classList.getChildren().add(label);
+    }
+
     VBox sectionList = new VBox();
     TitledPane coursePane = new TitledPane(course.courseName, sectionList);
 
@@ -75,6 +81,14 @@ public class Settings {
           new Label("Location: " + section.location), new Label("Units: " + section.units));
       sectionList.getChildren().add(sectionPane);
     }
+
+    Button removeButton = new Button("Remove Class");
+    sectionList.getChildren().add(removeButton);
+    removeButton.setOnAction(e -> {
+      getClassList().getChildren().remove(coursePane);
+    });
+    removeButton.getStyleClass().add("removeButton");
+    VBox.setMargin(removeButton, new Insets(10, 0, 0, 0));
 
     this.classList.getChildren().add(coursePane);
   }
@@ -107,11 +121,29 @@ public class Settings {
     // Time Select
     Label startLabel = new Label("Start Time");
     startLabel.setTextFill(Color.WHITE);
-    startLabel.setPadding(new Insets(10, 0, 0, 0));
-    TextField start = new TextField();
+    ChoiceBox<Integer> startHour = new ChoiceBox<>();
+    startHour.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+    startHour.setValue(12);
+    ChoiceBox<Integer> startMinute = new ChoiceBox<>();
+    startMinute.getItems().addAll(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55);
+    startMinute.setValue(0);
+    ChoiceBox<String> startAP = new ChoiceBox<>();
+    startAP.getItems().addAll("AM", "PM");
+    startAP.setValue("PM");
+    HBox start = new HBox(startHour, startMinute, startAP);
     Label endLabel = new Label("End Time");
     endLabel.setTextFill(Color.WHITE);
-    TextField end = new TextField();
+    ChoiceBox<Integer> endHour = new ChoiceBox<>();
+    endHour.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+    endHour.setValue(12);
+    ChoiceBox<Integer> endMinute = new ChoiceBox<>();
+    endMinute.getItems().addAll(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55);
+    endMinute.setValue(0);
+    ChoiceBox<String> endAP = new ChoiceBox<>();
+    endAP.getItems().addAll("AM", "PM");
+    endAP.setValue("PM");
+    HBox end = new HBox(endHour, endMinute, endAP);
+    VBox.setMargin(startLabel, new Insets(10, 0, 0, 0));
 
     // Add Button
     Button button = new Button("Add Break");
@@ -127,8 +159,17 @@ public class Settings {
         days += "Th";
       if (fr.isSelected())
         days += "Fr";
-      addBreak(new Break(name.getText(), days, start.getText() + "-" + end.getText()));
+      addBreak(new Break(name.getText(), days,
+          startHour.getValue() + ":"
+              + (startMinute.getValue().toString().length() == 1 ? "0" + startMinute.getValue()
+                  : startMinute.getValue())
+              + startAP.getValue()
+              + "-" + endHour.getValue() + ":"
+              + (endMinute.getValue().toString().length() == 1 ? "0" + endMinute.getValue()
+                  : endMinute.getValue())
+              + endAP.getValue()));
     });
+    VBox.setMargin(button, new Insets(10, 0, 0, 0));
 
     return new VBox(label, nameLabel, name, daySelectLabel, mo, tu, we, th, fr, startLabel, start, endLabel, end,
         button);
@@ -136,25 +177,45 @@ public class Settings {
   }
 
   private void addBreak(Break break1) {
+    if (breakList.getChildren().size() == 0) {
+      Label label = new Label("Break List");
+      label.getStyleClass().add("settingLabel");
+      breakList.getChildren().add(label);
+    }
+
     VBox breakPane = new VBox();
     breakPane.getChildren().addAll(new Label(break1.name), new Label("Days: " + break1.days),
         new Label("Time: " + break1.time));
     breakPane.getStyleClass().add("break");
     breakPane.setBorder(
         new Border(new BorderStroke(Color.DARKGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+    Button removeButton = new Button("Remove Break");
+    breakPane.getChildren().add(removeButton);
+    removeButton.setOnAction(e -> {
+      getBreakList().getChildren().remove(breakPane);
+    });
+    removeButton.getStyleClass().add("removeButton");
+    VBox.setMargin(removeButton, new Insets(10, 0, 0, 0));
     breakList.getChildren().add(breakPane);
   }
 
   public Pane getBreakList() {
-    Label label = new Label("Break List");
-    label.getStyleClass().add("settingLabel");
-    breakList.getChildren().add(label);
-
     return breakList;
   }
 
+  public Button getReset() {
+    Button button = new Button("Reset Scheduler");
+    button.setOnAction(e -> {
+      classList.getChildren().removeAll(classList.getChildren());
+      breakList.getChildren().removeAll(breakList.getChildren());
+    });
+    VBox.setMargin(button, new Insets(10, 0, 0, 0));
+    return button;
+  }
+
   public Settings() {
-    VBox vbox = new VBox(getAddClass(), getClassList(), getAddBreak(), getBreakList());
+    VBox vbox = new VBox(getAddClass(), getAddBreak(), getClassList(), getBreakList(), getReset());
     vbox.setId("settingsPaneVBox");
     root = new ScrollPane(vbox);
     root.setId("settingsPane");
