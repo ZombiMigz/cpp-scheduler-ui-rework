@@ -28,6 +28,7 @@ public class Settings {
   public Pane getAddClass() {
     Label label = new Label("Add Class");
     label.getStyleClass().add("settingLabel");
+    label.setId("first");
 
     // Term Select
     Label termLabel = new Label("Term");

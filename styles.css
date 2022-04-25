@@ -44,12 +44,16 @@
   -fx-font-size: 48;
 }
 /* Individual labels in settings "Add Class","Class List", etc */
+#first {
+  -fx-padding: 0 0 0 0;
+}
 .settingLabel {
-  -fx-padding: 20 0 0 0;
+  -fx-padding: 30 0 0 0;
   -fx-font-size: 48;
   -fx-font-weight: bold;
   -fx-text-fill: #fff;
 }
+
 
 /* #settingsPane > .label {
   -fx-text-fill: #fff;
