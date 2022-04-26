@@ -1,4 +1,5 @@
 import javafx.geometry.Pos;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollPane;
@@ -13,8 +14,11 @@ import javafx.scene.text.Font;
 
 public class ScheduleDisplay {
   private Pane root;
+  // these are the colors and corresponding label used for the class type in the schedule display
   private static String[] colors = {"#ffbfc5", "#ffc89c", "#faefbe", "#8fffff", "#baffd5", "#d3cfff", "#fac4ff"};
   private static String[] labelNames = {"Face-to-Face", "Fully Synchronous", "Hybrid Sychronous Component", "Fully Asynchronous", "Hybrid Asynchronous Component", "Bisynchronous", "Hyflex"};
+
+  // these are the images used as the schedules in the schedule display
   private static String[] imageName = {"sch1.png", "sch2.png", "sch6.png", "sch3.png", "sch4.png", "sch5.png", "sch7.png", "sch8.png"};
 
 
@@ -34,6 +38,7 @@ public class ScheduleDisplay {
     return hBox;
   }
 
+  // function to get the image view for the correct calendar
   public ImageView getImageView(int index) {
     Image image = new Image("file:assets\\" + imageName[index]);
     ImageView imageView = new ImageView(image);
@@ -52,6 +57,16 @@ public class ScheduleDisplay {
     VBox labelBox = new VBox(label);
     labelBox.setAlignment(Pos.CENTER);
 
+    // HBox for the sort choice box
+    HBox sortBox = new HBox();
+    ChoiceBox<String> sort = new ChoiceBox<>();
+    sort.getItems().addAll("Sort by: GPA: High to Low");
+    sort.setValue("Sort by: GPA: High to Low");
+    sort.getStylesheets().add("sort_choicebox_style.css");
+    sortBox.getChildren().addAll(sort);
+    sortBox.setAlignment(Pos.TOP_RIGHT);
+    sortBox.setStyle("-fx-padding: 0 20 0 0;");
+
     // creating the pagination needed to display the possible schedules
     Pagination pagination = new Pagination(imageName.length);
       pagination.setMaxPageIndicatorCount(12);
@@ -60,6 +75,7 @@ public class ScheduleDisplay {
         ScrollPane scheduleScrollPane = new ScrollPane();
         ImageView schedule = getImageView(pageIndex);
         schedule.fitWidthProperty().bind(root.widthProperty());
+        schedule.fitHeightProperty().bind(pagination.heightProperty());
 
         scheduleScrollPane.setContent(schedule);
         scheduleScrollPane.setFitToWidth(true);
@@ -67,7 +83,7 @@ public class ScheduleDisplay {
         return scheduleScrollPane;
     });
     HBox paginationBox = new HBox(pagination);
-    paginationBox.setAlignment(Pos.CENTER);
+    paginationBox.setAlignment(Pos.TOP_RIGHT);
 
 
     // creating the legend for the schedule display
@@ -81,7 +97,7 @@ public class ScheduleDisplay {
     };
 
     // adding all elements to the Schedule Display vertical box
-    root.getChildren().addAll(labelBox, paginationBox, legendBox);
+    root.getChildren().addAll(labelBox, sortBox, paginationBox, legendBox);
   }
 
   public Pane getView() {
